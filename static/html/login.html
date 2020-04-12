@@ -7,20 +7,22 @@
     <title>GarageX Security | Login</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.2/css/bulma.min.css">
     <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+    <script src="../js/login.js"></script>
 </head>
 
 <body>
 
     <section class="section">
         <div class="container">
-            <div class="columns is-mobile is-centered is-vcentered">
+            <div class="columns is-centered is-vcentered">
                 <div class="column is-one-third box">
                     <div class="columns">
-                        <div class="column is-10 is-offset-1">
+                        <div class="column is-10 is-offset-1" id="tx_d_loginform">
                             <h1 class="title is-3">GarageX Security Login</h1>
+                            <div id="tx_n_placeholder"></div>
                             <div class="field">
                                 <p class="control has-icons-left has-icons-right">
-                                    <input class="input" type="email" placeholder="User Email" id="email">
+                                    <input class="input" type="email" placeholder="User Email" id="tx_i_email">
                                     <span class="icon is-small is-left">
                                         <i class="fas fa-envelope"></i>
                                     </span>
@@ -31,17 +33,24 @@
                             </div>
                             <div class="field">
                                 <p class="control has-icons-left">
-                                    <input class="input" type="password" placeholder="Password" id="password">
+                                    <input class="input" type="password" placeholder="Password" id="tx_i_password">
                                     <span class="icon is-small is-left">
                                         <i class="fas fa-lock"></i>
                                     </span>
                                 </p>
                             </div>
                             <div class="columns">
-                                <div class="column is-6 is-offset-3">
-                                    <button class="button is-primary is-fullwidth" id="login_button">Login</button>
+                                <div class="column">
+                                    <button class="button is-primary is-fullwidth" id="tx_b_login" onclick="login()">Login</button>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                    <div class="columns">
+                        <div class="column is-8 is-offset-2">
+                            <h3 class="subtitle is-5">Trouble logging in?</h3>
+                            <button class="button is-link is-light" onclick="resetpwd()" id="tx_b_resetpwd">Reset Password</button>
+                            <button class="button is-warning is-light" onclick="contactus()" id="tx_b_contactus">Contact Us</button>
                         </div>
                     </div>
                 </div>
