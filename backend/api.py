@@ -1,4 +1,5 @@
 import json
+import os
 
 
 def teamx(fn, request, data=None):
@@ -10,11 +11,12 @@ def teamx(fn, request, data=None):
         return ''.encode(), 404, -1
 
 
-def load(path, size=4096):
+def load(path):
     try:
+        size = os.stat(path).st_size
         with open(path, 'rb') as f:
             data = f.read(size)
-        return data
+        return data, size
     except FileNotFoundError as e:
         print(e)
         return None
@@ -24,9 +26,9 @@ def login(request, data=None):
     print("LOGIN PAGE")
     if request == 0:  # GET
         path = '../static/html/login.html'
-        data = load(path)
+        data, size = load(path)
         if data is not None:
-            return data, 200, 0
+            return data, 200, 0, size
         else:
             return ''.encode(), 500, -1
     elif request == 1:  # POST

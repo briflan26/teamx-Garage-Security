@@ -65,7 +65,7 @@ class Server:
         return fn, t
 
     @staticmethod
-    def response_header(status=200, type=-1, length=4096):
+    def response_header(status=200, type=-1, length=None):
         response = 'HTTP/1.0 '
         date = 'Date: {}\r\n'.format(time.ctime())
         if type == 0:
@@ -131,16 +131,14 @@ class Server:
             print("file type: " + str(ft))
 
             if ft == 3:
-                r, s, t = self.api(fn, 0)
-                response = self.response_header(status=s, type=t)
+                r, s, t, l = self.api(fn, 0)
+                response = self.response_header(status=s, type=t, length=l)
                 response += r
             else:
                 try:
+                    size = os.stat(self.static + fn).st_size
                     with open(self.static + fn, 'rb') as f:
-                        f.seek(0, os.SEEK_END)
-                        size = f.tell()
-                        response = self.response_header(type=ft, length=size)
-                        f.seek(0)
+                        response = self.response_header(status=200, type=ft, length=size)
                         response += f.read(size)
                 except FileNotFoundError as e:
                     print(e)
