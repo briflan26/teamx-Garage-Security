@@ -4,8 +4,10 @@ import json
 def teamx(fn, request, data=None):
     if fn == '/':
         return login(request, data)
+    elif fn == '/login':
+        return login(request, data)
     else:
-        return ''.encode(), 500, -1
+        return ''.encode(), 404, -1
 
 
 def load(path, size=4096):
@@ -28,10 +30,13 @@ def login(request, data=None):
         else:
             return ''.encode(), 500, -1
     elif request == 1:  # POST
-        data = data.decode('utf-8').replace("'", '"')
+        if data is None:
+            return ''.encode(), 400, -1
         print(data)
-        data = json.dumps(data)
-        print(data)
-        data = json.loads(data)[0]
-        print(data)
+        d = json.loads(data)
+        print('email: ' + d['email'])
+        print('password: ' + d['password'])
+
+        return 'Successful login!'.encode(), 200, -1
+
 

@@ -6,7 +6,8 @@ Something went wrong. Please try again and contact us if you continue to have tr
 function login() {
     console.log("LOGIN");
     // constants
-    const url = "http://teamx.ddns.net/login";
+    // const url = "http://teamx.ddns.net/login";
+    const url = "http://localhost:8000/login"
     const request = new XMLHttpRequest();
     // get elements
     var email = document.getElementById("tx_i_email");
@@ -21,14 +22,15 @@ function login() {
 
     // collect data
     var data = {
-        email: email.value,
-        password: pwd.value
+        "email": email.value,
+        "password": pwd.value
     };
     console.log(data);
 
     // send login request
     request.open("POST", url);
-    request.send(data);
+    request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    request.send(JSON.stringify(data));
     request.onreadystatechange = (e) => {
         if (this.readyState == 4 && this.status == 200) {
             console.log(request.responseText);

@@ -20,7 +20,7 @@ class Server:
         self.socket.listen(5)
         while True:
             csocket, address = self.socket.accept()
-            response = self.recv(csocket, address)
+            response = self.process(csocket, address)
             csocket.send(response)
             csocket.close()
 
@@ -67,42 +67,64 @@ class Server:
     @staticmethod
     def response_header(status=200, type=-1, length=4096):
         response = 'HTTP/1.0 '
-        date = 'Date: {}\n'.format(time.ctime())
+        date = 'Date: {}\r\n'.format(time.ctime())
         if type == 0:
-            ctype = 'Content-Type: text/html\n'
+            ctype = 'Content-Type: text/html\r\n'
         elif type == 1:
-            ctype = 'Content-Type: text/css\n'
+            ctype = 'Content-Type: text/css\r\n'
         elif type == 2:
-            ctype = 'Content-Type: application/javascript\n'
+            ctype = 'Content-Type: application/javascript\r\n'
         elif type == 3:
-            ctype = 'Content-Type: application/json\n'
+            ctype = 'Content-Type: application/json\r\n'
         else:
-            ctype = 'Content-Type: text/plain\n'
+            ctype = 'Content-Type: text/plain\r\n'
 
-        clen = 'Content-Length: {}\n\n'.format(length)
+        clen = 'Content-Length: {}\r\n\r\n'.format(length)
 
         if status == 200:
-            response += '200 OK\n'
+            response += '200 OK\r\n'
+        elif status == 400:
+            response += '400 BAD REQUEST\r\n'
         elif status == 404:
-            response += '404 NOT FOUND\n'
+            response += '404 NOT FOUND\r\n'
         elif status == 403:
-            response += '403 UNAUTHORIZED\n'
+            response += '403 UNAUTHORIZED\r\n'
         else:
-            response += '500 SERVER ERROR\n'
+            response += '500 SERVER ERROR\r\n'
         response += date
         response += ctype
         response += clen
         print(response)
         return response.encode()
 
-    def default_api(self, fn, request):
+    @staticmethod
+    def get_data(msg):
+        d = ''
+        p = [None, None, None]
+        flag = False
+        for c in msg.decode('utf-8'):
+            if flag:
+                d += c
+            else:
+                if c == '\n' and p[0] == '\r' and p[1] == '\n' and p[2] == '\r':
+                    flag = True
+                else:
+                    p[0] = p[1]
+                    p[1] = p[2]
+                    p[2] = c
+
+        print(d)
+        return d
+
+    @staticmethod
+    def default_api(fn, request):
         print("Default api call")
         return ''.encode(), 500, -1
 
-    def recv(self, c, a):
-        msg = c.recv(1024)
+    def process(self, c, a):
+        msg = c.recv(4096)
         print(msg)
-        if self.request_type(msg) == 0:
+        if self.request_type(msg) == 0:  # GET
             fn, ft = self.get_fn(msg, 0)
 
             print("file name: " + fn)
@@ -123,13 +145,14 @@ class Server:
                 except FileNotFoundError as e:
                     print(e)
                     response = self.response_header(status=404, length=0)
-        elif self.request_type(msg) == 1:
+        elif self.request_type(msg) == 1:  # POST
+            data = self.get_data(msg)
             fn, ft = self.get_fn(msg, 1)
             print("file name: " + fn)
             print("file type: " + str(ft))
 
             if ft == 3:
-                r, s, t = self.api(fn, 1)
+                r, s, t = self.api(fn, 1, data)
                 response = self.response_header(status=s, type=t)
                 response += r
             else:
