@@ -7,7 +7,8 @@ function login() {
     console.log("LOGIN");
     // constants
     // const url = "http://teamx.ddns.net/login";
-    const url = "http://localhost:8000/login"
+    const host = "http://localhost:8000"
+    const url = host + "/login"
     const request = new XMLHttpRequest();
     // get elements
     var email = document.getElementById("tx_i_email");
@@ -32,21 +33,24 @@ function login() {
     request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     request.send(JSON.stringify(data));
     request.onreadystatechange = (e) => {
-        if (this.readyState == 4 && this.status == 200) {
-            console.log(request.responseText);
-        } else {
-            var parent = document.getElementById("tx_n_placeholder");
-            var note = document.createElement("div");
-            note.innerHTML = error_1;
-            parent.appendChild(note);
+        if (request.readyState == 4) {
+            if (request.status == 200) {
+                console.log(request.responseText);
+                window.location.assign(host + "/home")
+            } else {
+                var parent = document.getElementById("tx_n_placeholder");
+                var note = document.createElement("div");
+                note.innerHTML = error_1;
+                parent.appendChild(note);
 
-            // update elements
-            email.value = null;
-            pwd.value = null;
-            email.disabled = false;
-            pwd.disabled = false;
-            button.disabled = false;
-            button.classList.remove("is-loading");
+                // update elements
+                email.value = null;
+                pwd.value = null;
+                email.disabled = false;
+                pwd.disabled = false;
+                button.disabled = false;
+                button.classList.remove("is-loading");
+            }
         }
     }
 }

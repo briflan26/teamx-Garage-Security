@@ -7,6 +7,8 @@ def teamx(fn, request, data=None):
         return login(request, data)
     elif fn == '/login':
         return login(request, data)
+    elif fn == '/home':
+        return home(request, data)
     else:
         return ''.encode(), 404, -1, 0
 
@@ -32,13 +34,23 @@ def login(request, data=None):
         else:
             return ''.encode(), 500, -1, 0
     elif request == 1:  # POST
+        home_path = '../static/html/home.html'
         if data is None:
             return ''.encode(), 400, -1, 0
         print(data)
         d = json.loads(data)
         print('email: ' + d['email'])
         print('password: ' + d['password'])
+        data, size = load(home_path)
+        return data, 200, -1, size
 
-        return 'Successful login!'.encode(), 200, -1, 0
 
-
+def home(request, data=None):
+    print("HOME PAGE")
+    if request == 0:  # GET
+        path = '../static/html/home.html'
+        data, size = load(path)
+        if data is not None:
+            return data, 200, 0, size
+        else:
+            return ''.encode(), 500, -1, 0
