@@ -150,8 +150,8 @@ class Server:
             print("file type: " + str(ft))
 
             if ft == 3:
-                r, s, t = self.api(fn, 1, data)
-                response = self.response_header(status=s, type=t)
+                r, s, t, l = self.api(fn, 1, data)
+                response = self.response_header(status=s, type=t, length=l)
                 response += r
             else:
                 response = self.response_header(status=403, length=0)
