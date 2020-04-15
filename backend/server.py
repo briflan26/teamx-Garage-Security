@@ -5,7 +5,6 @@ from api import API
 
 class Server:
     def __init__(self, host=None, port=None, project=None):
-        self.api = API()
         self.socket = socket.socket()
         if host is None:
             host = socket.gethostname()
@@ -16,6 +15,7 @@ class Server:
         if project is None:
             project = '..'
         self.project = project
+        self.api = API(self.host, self.port)
         self.socket.bind((host, port))
         self.socket.listen(5)
 

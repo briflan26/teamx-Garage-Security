@@ -10,16 +10,24 @@ class API:
     HOME_P = '/static/html/home.html'
     PROJET_DIR = '..'
 
-    def __init__(self):
+    def __init__(self, host, port):
         self.db = DataBase('db.json')
-        self.map = {'/': self.index,
-                    '/login': self.login,
-                    '/home': self.home
-                    }
+        self.host = host
+        self.port = port
+        self.map = {
+            '/': self.index,
+            '/login': self.login,
+            '/home': self.home
+        }
+        self.gen_map = {
+            '/static/js/constants.js': self.gen_constants
+        }
 
     def route(self, request):
         if request.path in self.map.keys():  # endpoint exists
             return self.map[request.path](request).generate()
+        elif request.path in self.gen_map.keys():
+            return self.gen_map[request.path](request).generate()
         else:  # endpoint does not exist
             return self.default(request).generate()
 
@@ -53,6 +61,10 @@ class API:
             response.data = 'Failure'.encode()
 
         return response
+
+    def gen_constants(self, request):
+        return Response(code=HTTPResponseCodes.OK, content_type=HTTPContentTypes.JAVASCRIPT,
+                        data='const hostname = "{}";\nconst port = {};\n'.format(self.host, self.port).encode())
 
     def index(self, request):
         if request.method == HTTPMethods.GET:  # GET
