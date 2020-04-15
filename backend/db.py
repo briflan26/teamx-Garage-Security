@@ -1,5 +1,5 @@
+import console
 import json
-# import os
 import uuid
 import time
 
@@ -10,7 +10,7 @@ class DataBase:
             with open(fn, 'r') as f:
                 self.users = json.load(f)
         except FileNotFoundError as e:
-            print('[ERROR] Unable to open database file')
+            console.error('Unable to open database file')
             exit(1)
 
     def login(self, email, password):
@@ -23,8 +23,8 @@ class DataBase:
             return None
 
     def check_session(self, email, key):
-        if email in self.users.keys() and key == self.users[email]['session']['key'] and (
-                time.time() - self.users[email]['session']['time']) < 3600:
+        if email in self.users.keys() and 'session' in self.users[email].keys() and key == self.users[email]['session'][
+                'key'] and (time.time() - self.users[email]['session']['time']) < 3600:
             self.users[email]['session']['time'] = time.time()
             return True
         else:

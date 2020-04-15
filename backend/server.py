@@ -1,6 +1,7 @@
 import socket
 from request import Request
 from api import API
+import console
 
 
 class Server:
@@ -22,13 +23,19 @@ class Server:
     def run(self):
         # TODO add multi-threading here
         while True:
-            csocket, address = self.socket.accept()
-            csocket.send(self.receive(csocket))
-            csocket.close()
+            client, address = self.socket.accept()
+            client.send(self.communicate(client))
+            client.close()
 
-    def receive(self, client):
+    def communicate(self, client):
         req = Request(msg=client.recv(4096))
 
-        print('[INFO] Received {} request at {}'.format(req.method.name, req.path))
+        console.info('Received {} request at {} with {} parameters'.format(req.method.name, req.path,
+                                                                           0 if req.params is None else len(
+                                                                               req.params.keys())))
 
-        return self.api.route(req)
+        resp = self.api.route(req)
+
+        console.info('Sent {} {} response'.format(resp.status.value, resp.status.name.replace('_', ' ')))
+
+        return self.api.route(req).generate()

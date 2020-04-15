@@ -1,3 +1,4 @@
+import console
 import enum
 import json
 
@@ -30,8 +31,7 @@ class Request:
         utf_raw = self.raw.decode('utf-8')
         path_regex = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ01234567890/-.'
         params_regex = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ01234567890-=&@.'
-
-        print('[DEBUG] ' + utf_raw)
+        console.debug('RAW REQUEST' + utf_raw)
 
         if utf_raw[0:3] == 'GET':
             self.method = HTTPMethods.GET
@@ -68,8 +68,7 @@ class Request:
                 break
             self.path += c
             start_i += 1
-
-        print('[DEBUG] Checking for ?: ' + utf_raw[start_i])
+        console.debug('Checking for ?: ' + utf_raw[start_i])
 
         if utf_raw[start_i] == '?':
             start_i += 1
@@ -78,15 +77,13 @@ class Request:
                 if c not in params_regex:
                     break
                 temp_params += c
-
-            print('[DEBUG] Params: ' + temp_params)
+            console.debug('Params: ' + temp_params)
 
             self.params = dict(k.split('=') for k in temp_params.split('&'))
 
         else:
             self.params = None
-
-        print('[DEBUG] SELF.PARAMS = {}'.format(self.params))
+        console.debug('SELF.PARAMS = {}'.format(self.params))
 
         if self.method == HTTPMethods.POST:
             self.data = ''
@@ -106,7 +103,7 @@ class Request:
             try:
                 self.data = json.loads(self.data)
             except json.JSONDecodeError:
-                print('[ERROR] Unable to decode data into a dictionary from HTTP request')
+                console.error('Unable to decode data into a dictionary from HTTP request')
                 self.data = None
         else:
             self.data = None
