@@ -22,6 +22,14 @@ class DataBase:
         else:
             return None
 
+    def logout(self, email, key):
+        if email in self.users.keys() and 'session' in self.users[email].keys() and key == self.users[email]['session'][
+                'key'] and (time.time() - self.users[email]['session']['time']) < 3600:
+            del self.users[email]['session']
+            return True
+        else:
+            return False
+
     def check_session(self, email, key):
         if email in self.users.keys() and 'session' in self.users[email].keys() and key == self.users[email]['session'][
                 'key'] and (time.time() - self.users[email]['session']['time']) < 3600:
@@ -35,3 +43,4 @@ class DataBase:
             return self.users[email]['access']
         else:
             return None
+
