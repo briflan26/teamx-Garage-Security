@@ -6,20 +6,23 @@ from multiprocessing import Process
 
 
 class Server:
-    def __init__(self, host=None, port=None, project=None):
+    def __init__(self, host_ip=None, hostname=None, port=None, project=None):
         self.socket = socket.socket()
-        if host is None:
-            host = socket.gethostbyname(socket.gethostname())
+        if host_ip is None:
+            host_ip = socket.gethostbyname(socket.gethostname())
             # host = '192.168.1.176'
-        self.host = host
+        self.host_ip = host_ip
+        if hostname is None:
+            hostname = self.host_ip
+        self.hostname = hostname
         if port is None:
             port = 80
         self.port = port
         if project is None:
             project = '..'
         self.project = project
-        self.api = API(self.host, self.port)
-        self.socket.bind((host, port))
+        self.api = API(self.hostname, self.port)
+        self.socket.bind((self.host_ip, self.port))
         self.socket.listen(5)
 
     def run(self):
@@ -34,9 +37,10 @@ class Server:
     def communicate(self, client, address, msg):
         req = Request(msg=msg)
 
-        console.info('Received {} request from {} at {} with {} parameters'.format(req.method.name, address[0], req.path,
-                                                                                   0 if req.params is None else len(
-                                                                                       req.params.keys())))
+        console.info(
+            'Received {} request from {} at {} with {} parameters'.format(req.method.name, address[0], req.path,
+                                                                          0 if req.params is None else len(
+                                                                              req.params.keys())))
 
         resp = self.api.route(req)
 

@@ -3,22 +3,19 @@ import argparse
 
 
 def main(argv):
-    if argv.hostname and argv.port:
-        s = Server(host=argv.hostname, port=argv.port)
-    elif argv.hostname:
-        s = Server(host=argv.hostname)
-    elif argv.port:
-        s = Server(port=argv.port)
-    else:
-        s = Server()
-    print("Server running at http://{}:{}".format(s.host, s.port))
+    if argv.host_ip and argv.hostname and argv.port:
+        pass
+
+    s = Server(host_ip=argv.host_ip, hostname=argv.hostname, port=argv.port)
+    print("Server running at http://{}:{}".format(s.hostname, s.port))
     s.run()
 
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
+    parser.add_argument("-hi", "--host-ip", type=str, required=False, help="Optional hostip IP used when opening sockets")
     parser.add_argument("-hn", "--hostname", type=str, required=False,
-                        help="Optional hostname used when opening sockets")
+                        help="Optional hostname used when generating constants.js for clients")
     parser.add_argument("-p", "--port", type=int, required=False, help="Optional port number used when opening sockets")
     args = parser.parse_args()
 

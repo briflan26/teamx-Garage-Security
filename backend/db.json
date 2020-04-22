@@ -1,1 +1,10 @@
-{"teamx@wpi.edu": {"password": "teamx123", "access": "owner"}, "bflanagan@wpi.edu": {"password": "brian123", "access": "shared"}}
+{
+  "teamx@wpi.edu": {
+    "password": "teamx123",
+    "access": "owner"
+  },
+  "bflanagan@wpi.edu": {
+    "password": "brian123",
+    "access": "shared"
+  }
+}
