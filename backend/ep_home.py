@@ -10,10 +10,12 @@ HOME_P = '/static/html/home.html'
 def home(db, request):
     if request.method == HTTPMethods.GET:  # GET
         if 'email' in request.params.keys() and 'session' in request.params.keys():
-            console.debug('Database: {}'.format(db.users))
+            console.debug('Session Exists: {}'.format(db.users[request.params['email']]))
             if db.check_session(request.params['email'], request.params['session']):
+                console.debug('Session is valid.')
                 return load_static(settings.PROJECT_DIR + HOME_P)
             else:
+                console.debug('Session is invalid.')
                 return Response(code=HTTPResponseCodes.UNAUTHORIZED, content_type=HTTPContentTypes.PLAIN,
                                 data='Authorization Failure'.encode())
         else:

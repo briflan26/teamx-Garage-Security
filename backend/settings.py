@@ -10,8 +10,8 @@ INFO = True
 # ERROR = True
 ERROR = False
 
-# DEBUG = True
-DEBUG = False
+DEBUG = True
+# DEBUG = False
 
 PROJECT_DIR = '..'
 

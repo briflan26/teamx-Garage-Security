@@ -11,8 +11,9 @@ from ep_login import login
 
 
 class API:
-    def __init__(self, host, port):
-        self.db = DataBase('db.json')
+    def __init__(self, db, lock, host, port):
+        self.db = db
+        self.db_lock = lock
         self.host = host
         self.port = port
         self.map = {
@@ -26,7 +27,10 @@ class API:
 
     def route(self, request):
         if request.path in self.map.keys():  # endpoint exists
-            return self.map[request.path](self.db, request)
+            self.db_lock.acquire()
+            r = self.map[request.path](self.db, request)
+            self.db_lock.release()
+            return r
         elif request.path in self.gen_map.keys():
             return self.gen_map[request.path](request)
         else:  # endpoint does not exist
