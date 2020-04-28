@@ -9,12 +9,6 @@ from client.request import Request
 import timeGPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
 GPIO.setup(18,GPIO.OUT)
-print "LED on"
-GPIO.output(18,GPIO.HIGH)
-time.sleep(1)
-print "LED off"
-GPIO.output(18,GPIO.LOW)
-
 
 class Client:
     def __init__(self, host_ip=None, hostname=None, port=None, project=None):
