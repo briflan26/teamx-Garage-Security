@@ -1,7 +1,11 @@
 import socket
+import time
 from multiprocessing import Process, Lock
 
 import RPi.GPIO as GPIO
+
+from backend import console
+from client.request import Request
 import timeGPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
 GPIO.setup(18,GPIO.OUT)
@@ -47,8 +51,6 @@ class Client:
             'Received {} request from {} at {} with {} parameters'.format(req.method.name, address[0], req.path,
                                                                           0 if req.params is None else len(
                                                                               req.params.keys())))
-
-        resp = self.api.route(req)
 
         #console.info('Sent {} {} response'.format(resp.status.value, resp.status.name.replace('_', ' ')))
         if req != 0:

@@ -1,4 +1,4 @@
-from server import Server
+from client import Client
 import argparse
 
 
@@ -6,9 +6,9 @@ def main(argv):
     if argv.host_ip and argv.hostname and argv.port:
         pass
 
-    s = Server(host_ip=argv.host_ip, hostname=argv.hostname, port=argv.port)
+    c = Client(host_ip=argv.host_ip, hostname=argv.hostname, port=argv.port)
     print("Server running at http://{}:{}".format(s.hostname, s.port))
-    s.run()
+    c.run()
 
 
 if __name__ == "__main__":
