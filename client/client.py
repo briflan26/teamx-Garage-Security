@@ -17,7 +17,7 @@ class Client:
         self.socket = socket.socket()
         if host_ip is None:
             host_ip = socket.gethostbyname(socket.gethostname())
-            # host = '192.168.1.176'
+            #host = '192.168.1.176'
         self.host_ip = host_ip
         if hostname is None:
             hostname = self.host_ip
