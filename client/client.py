@@ -1,6 +1,16 @@
 import socket
 from multiprocessing import Process, Lock
 
+import RPi.GPIO as GPIO
+import timeGPIO.setmode(GPIO.BCM)
+GPIO.setwarnings(False)
+GPIO.setup(18,GPIO.OUT)
+print "LED on"
+GPIO.output(18,GPIO.HIGH)
+time.sleep(1)
+print "LED off"
+GPIO.output(18,GPIO.LOW)
+
 
 class Client:
     def __init__(self, host_ip=None, hostname=None, port=None, project=None):
@@ -43,8 +53,12 @@ class Client:
 
         resp = self.api.route(req)
 
-        console.info('Sent {} {} response'.format(resp.status.value, resp.status.name.replace('_', ' ')))
+        #console.info('Sent {} {} response'.format(resp.status.value, resp.status.name.replace('_', ' ')))
+        if req != 0:
+            GPIO.output(18,GPIO.HIGH)
+	    time.sleep(5)
+	    GPIO.output(18,GPIO.LOW)
 
-        client.send(self.api.route(req).generate())
-
+        #client.send(self.api.route(req).generate())
+        #Do we want something sent to notify the request was received and confirm action was taken?
         client.close()
