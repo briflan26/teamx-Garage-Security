@@ -1,12 +1,8 @@
 import socket
-from request import Request
-from api import API
-import console as console
 from multiprocessing import Process, Lock
-from db import DataBase
 
 
-class Server:
+class Client:
     def __init__(self, host_ip=None, hostname=None, port=None, project=None):
         self.socket = socket.socket()
         self.db = DataBase('db.json')
