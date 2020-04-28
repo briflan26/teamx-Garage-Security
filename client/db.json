@@ -1,0 +1,22 @@
+{
+    "teamx@wpi.edu": {
+        "password": "teamx123",
+        "access": "owner",
+        "session": {
+            "key": "3033e90b-1741-4ef2-b396-dec78033334f",
+            "time": 1587653182.1480312
+        }
+    },
+    "bflanagan@wpi.edu": {
+        "password": "brian123",
+        "access": "shared"
+    },
+    "ksgill@wpi.edu": {
+        "password": "kuldeep123",
+        "access": "shared"
+    },
+    "alexw@wpi.edu": {
+        "password": "alex123",
+        "access": "shared"
+    }
+}
