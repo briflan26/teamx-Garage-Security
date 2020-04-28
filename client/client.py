@@ -15,7 +15,6 @@ GPIO.output(18,GPIO.LOW)
 class Client:
     def __init__(self, host_ip=None, hostname=None, port=None, project=None):
         self.socket = socket.socket()
-        self.db = DataBase('db.json')
         if host_ip is None:
             host_ip = socket.gethostbyname(socket.gethostname())
             # host = '192.168.1.176'
@@ -29,8 +28,6 @@ class Client:
         if project is None:
             project = '..'
         self.project = project
-        self.db_lock = Lock()
-        self.api = API(self.db, self.db_lock, self.hostname, self.port)
         self.socket.bind((self.host_ip, self.port))
         self.socket.listen(5)
 
