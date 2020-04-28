@@ -60,8 +60,8 @@ class Server:
         #console.info('Sent {} {} response'.format(resp.status.value, resp.status.name.replace('_', ' ')))
         if req != 0:
             GPIO.output(18,GPIO.HIGH)
-		    time.sleep(5)
-		    GPIO.output(18,GPIO.LOW)
+	    time.sleep(5)
+	    GPIO.output(18,GPIO.LOW)
 
         #client.send(self.api.route(req).generate())
         #Do we want something sent to notify the request was received and confirm action was taken?
