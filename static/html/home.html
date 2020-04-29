@@ -67,12 +67,12 @@
               <h1 class="title is-5">Garage Status: </h1>
             </div>
             <div class="column">
-              <button class="button" id="garage_status" disabled>Open</button>
+              <button class="button" id="tx_garage_status" disabled>Closed</button>
             </div>
           </div>
           <div class="columns is-centered is-vcentered box">
-            <div class="column is-narrow">
-              <button class="button is-danger is-focused">Close Your Garage</button>
+            <div class="column is-narrow" id="tx_change_div">
+              <button class="button is-danger is-focused" onclick="gopen();" id="tx_b_change_status">Open Your Garage</button>
             </div>
           </div>
         </div>
@@ -89,9 +89,9 @@
                   <h1 class="title is-5">Notifications</h1>
                 </div>
                 <div class='column'>
-                  <button class="button" id="tx_b_refresh" onclick="refresh()">
+                  <button class="button" id="tx_b_refresh" onclick="refresh();">
                     <span class="icon is-right">
-                      <i class="fas fa-redo" onclick="refresh()"></i>
+                      <i class="fas fa-redo"></i>
                     </span>
                   </button>
                 </div>
@@ -102,13 +102,26 @@
           </div>
           <div class="columns is-centered is-vcentered box">
             <div class="column is-narrow">
-              <button class="button is-link is-focused">View LiveStream</button>
+              <button class="button is-link is-focused" onclick="modalOpen('tx_livestream');">View LiveStream</button>
             </div>
           </div>
         </div>
       </div>
     </div>
   </section>
+
+  <div class="modal" id="tx_livestream">
+    <div class="modal-background" onclick="modalClose('tx_livestream');"></div>
+    <div class="modal-card">
+      <header class="modal-card-head">
+        <p class="modal-card-title">GarageX Security Camera LiveStream</p>
+        <button class="delete" onclick="modalClose('tx_livestream');" aria-label="close"></button>
+      </header>
+      <section class="modal-card-body">
+        <!-- Content ... -->
+      </section>
+    </div>
+  </div>
 
 </body>
 

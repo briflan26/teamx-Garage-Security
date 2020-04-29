@@ -54,3 +54,65 @@ function refresh() {
         }
     }
 }
+
+function gopen() {
+    const ref_url = 'http://' + hostname + ':' + port.toString() + "/garage/status/change";
+    const request = new XMLHttpRequest();
+    var status = document.getElementById("tx_garage_status");
+    var schange = document.getElementById("tx_b_change_status");
+
+    schange.classList.add("is-loading");
+
+    request.open("POST", ref_url);
+    request.send(JSON.stringify({ "status": 0, "email": window.sessionStorage.getItem("email"), "session": window.sessionStorage.getItem("key") }));
+    request.onreadystatechange = (e) => {
+        if (request.readyState == 4) {
+            if (request.status == 200) {
+                console.log(request.responseText);
+                status.innerHTML = "Opened";
+                schange.onclick = function () { gclose(); };
+                schange.innerHTML = "Close Your Garage";
+                schange.classList.remove("is-loading");
+            } else {
+                alert("Unable to open your garage. Please contact your system administrator");
+            }
+        }
+    }
+}
+
+function gclose() {
+    console.log("Closing garage..")
+    const ref_url = 'http://' + hostname + ':' + port.toString() + "/garage/status/change";
+    const request = new XMLHttpRequest();
+    var status = document.getElementById("tx_garage_status");
+    var schange = document.getElementById("tx_b_change_status");
+
+    schange.classList.add("is-loading");
+
+    request.open("POST", ref_url);
+    request.send(JSON.stringify({ "status": 1, "email": window.sessionStorage.getItem("email"), "session": window.sessionStorage.getItem("key") }));
+    request.onreadystatechange = (e) => {
+        if (request.readyState == 4) {
+            if (request.status == 200) {
+                console.log(request.responseText);
+                status.innerHTML = "Closed";
+                schange.onclick = function () { gopen(); };
+                schange.innerHTML = "Open Your Garage";
+                schange.classList.remove("is-loading");
+            } else {
+                schange.classList.remove("is-loading");
+                alert("Unable to close your garage. Please contact your system administrator");
+            }
+        }
+    }
+}
+
+function modalClose(id) {
+    el = document.getElementById(id);
+    el.classList.remove("is-active");
+}
+
+function modalOpen(id){
+    el = document.getElementById(id);
+    el.classList.add("is-active");
+}

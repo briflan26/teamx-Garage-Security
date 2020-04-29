@@ -8,6 +8,7 @@ from ep_login import Login
 from ep_cam import SecurityCameraAlert
 from ep_logout import Logout
 from ep_gstatus import GarageStatus
+from ep_gchange import GarageStatusChange
 from ep_camrefresh import CameraAlertRefresh
 
 
@@ -25,7 +26,8 @@ class API:
             '/home': Home,
             '/security/camera/alert': SecurityCameraAlert,
             '/garage/status': GarageStatus,
-            '/security/camera/refresh': CameraAlertRefresh
+            '/security/camera/refresh': CameraAlertRefresh,
+            '/garage/status/change': GarageStatusChange
         }
         self.gen_map = {
             '/static/js/constants.js': self.gen_constants
