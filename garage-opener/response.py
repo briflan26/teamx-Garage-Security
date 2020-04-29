@@ -24,32 +24,11 @@ class HTTPContentTypes(enum.Enum):
 
 
 class Response:
-    def __init__(self, http='HTTP/1.0', code=None, content_type=None, data=None, raw=None):
-        if raw is not None:
-            self.version = None
-            self.status = None
-            self.data = None
-            self.content_type = None
-            self.parse(raw)
-        else:
-            self.version = http
-            self.status = code
-            self.content_type = content_type
-            self.data = data
-
-    def parse(self, raw):
-        utf_raw = raw.decode('utf-8')
-        console.debug('RAW RESPONSE:  ' + utf_raw)
-
-        self.version = utf_raw[0:8]
-        console.debug("VERSION: " + self.version)
-        s = int(utf_raw[9:12])
-        self.status = HTTPResponseCodes(s)
-
-        # for s in HTTPResponseCodes:
-        #     i = 9 + len(s.name)
-        #     if utf_raw[9:i] == s.name and utf_raw[i+1:i+5] == str(s.value):
-        #         self.status = s
+    def __init__(self, http='HTTP/1.0', code=None, content_type=None, data=None):
+        self.version = http
+        self.status = code
+        self.content_type = content_type
+        self.data = data
 
     def generate(self):
         if self.status is None or self.content_type is None or self.data is None:

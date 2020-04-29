@@ -2,6 +2,7 @@ import socket
 import sys
 import time
 import json
+from argparse import ArgumentParser
 
 
 def build(method='POST', path='/security/camera/alert', msg=None):
@@ -48,11 +49,25 @@ def alert(host_ip=None, hostname=None, port=None, data=None):
 
     s.send(data)
 
+    print(data)
+
     s.close()
+
+    print("Successfully sent message")
 
 
 def main():
-    alert(host_ip='192.168.0.190')
+    parser = ArgumentParser()
+    parser.add_argument("--host-name", "-hn", required=False, type=str)
+    parser.add_argument("--port", "-p", required=False, type=int)
+    args = parser.parse_args()
+    i = 0
+    while i < 5:
+        msg = input("Input message")
+        alert(hostname=args.host_name, port=args.port, data=build(msg=msg))
+        i += 1
+
+    # alert(host_ip='192.168.0.190')
 
 
 if __name__ == '__main__':
