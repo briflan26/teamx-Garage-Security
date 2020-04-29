@@ -12,9 +12,9 @@ import json
 class CameraAlertRefresh(Endpoint):
     def run(self, db, request):
         if request.method == HTTPMethods.GET:  # GET
-            if request.params is not None and 'email' in request.params.keys() and 'session' in request.params.keys():
-                console.debug('Refresh from {} : {}'.format(request.params['email'], request.params['session']))
-                alerts = db.get_alerts()
+            if request.params is not None and 'email' in request.params.keys() and 'session' in request.params.keys() and 'epoch' in request.params.keys():
+                console.debug('Refresh from {} : {}, {}'.format(request.params['email'], request.params['session'], request.params['epoch']))
+                alerts = db.get_alerts(int(request.params['epoch']))
                 data = dict()
                 if len(alerts.keys()) == 0:
                     data['status'] = 1

@@ -4,11 +4,12 @@ import time
 import json
 
 
-def build(method='POST', path='/security/camera', msg=None):
+def build(method='POST', path='/security/camera/alert', msg=None):
     method = method
     path = path
     data = dict()
     data['time'] = time.ctime()
+    data['epoch'] = int(time.time() * 1000)
     if msg is None:
         data['message'] = 'Motion Detected'
     else:

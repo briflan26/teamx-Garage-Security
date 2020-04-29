@@ -12,8 +12,8 @@
             "password": "brian123",
             "access": "shared",
             "session": {
-                "key": "bb8bc8a5-b2ff-4b0a-812d-8149e6db89e1",
-                "time": 1588133443.9954846
+                "key": "92d3fb9a-ed32-4f39-8352-8e279f05eeb6",
+                "time": 1588164833.6972067
             }
         },
         "ksgill@wpi.edu": {
@@ -30,7 +30,25 @@
         }
     },
     "alerts": {
-        "Thu Apr 23 11:26:56 2020": "Motion Detected",
-        "Thu Apr 23 11:28:09 2020": "Motion Detected"
+        "1588163285144": {
+            "time": "Wed Apr 29 08:28:05 2020",
+            "message": "Motion Detected"
+        },
+        "1588163286168": {
+            "time": "Wed Apr 29 08:28:06 2020",
+            "message": "Motion Detected"
+        },
+        "1588163720226": {
+            "time": "Wed Apr 29 08:35:20 2020",
+            "message": "Motion Detected"
+        },
+        "1588164583977": {
+            "time": "Wed Apr 29 08:49:43 2020",
+            "message": "Motion Detected"
+        },
+        "1588164673594": {
+            "time": "Wed Apr 29 08:51:13 2020",
+            "message": "Motion Detected"
+        }
     }
 }

@@ -1,4 +1,5 @@
 var counter = 0;
+var lastime = 0;
 
 function closenote(id) {
     document.getElementById(id).remove();
@@ -18,12 +19,15 @@ function refresh() {
     console.log("REFRESH");
     // constants
     const ref_url = 'http://' + hostname + ':' + port.toString() + "/security/camera/refresh" + "?email=" +
-        window.sessionStorage.getItem('email') + "&session=" + window.sessionStorage.getItem('key');
+        window.sessionStorage.getItem('email') + "&session=" + window.sessionStorage.getItem('key') + "&epoch=" +
+        lastime.toString();
     console.log(ref_url);
     const request = new XMLHttpRequest();
 
     // get elements
     var button = document.getElementById("tx_b_refresh");
+    var parent = document.getElementById("tx_cam_alerts");
+    parent.innerHTML = '';
 
     // update elements
     button.classList.add("is-loading");
@@ -38,9 +42,12 @@ function refresh() {
                 resp_data = JSON.parse(request.response);
                 if (resp_data['status'] == 0) {
                     for (var k in resp_data['alerts']) {
-                        displayalert(counter, k, resp_data['alerts'][k]);
+                        displayalert(counter, resp_data['alerts'][k]['time'], resp_data['alerts'][k]['message']);
                         counter++;
+                        if (Number(k) > lastime) lastime = Number(k);
                     }
+                } else {
+                    parent.innerHTML = "<h3 class='title is-5'>No new alerts</h3>"
                 }
                 button.classList.remove("is-loading");
             }
