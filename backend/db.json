@@ -1,22 +1,36 @@
 {
-    "teamx@wpi.edu": {
-        "password": "teamx123",
-        "access": "owner",
-        "session": {
-            "key": "3033e90b-1741-4ef2-b396-dec78033334f",
-            "time": 1587653182.1480312
+    "users": {
+        "teamx@wpi.edu": {
+            "password": "teamx123",
+            "access": "owner",
+            "session": {
+                "key": "3033e90b-1741-4ef2-b396-dec78033334f",
+                "time": 1587653182.1480312
+            }
+        },
+        "bflanagan@wpi.edu": {
+            "password": "brian123",
+            "access": "shared",
+            "session": {
+                "key": "bb8bc8a5-b2ff-4b0a-812d-8149e6db89e1",
+                "time": 1588133443.9954846
+            }
+        },
+        "ksgill@wpi.edu": {
+            "password": "kuldeep123",
+            "access": "shared",
+            "session": {
+                "key": "1ab3a542-2987-4f21-8a29-9119771455d6",
+                "time": 1587653326.9180913
+            }
+        },
+        "alexw@wpi.edu": {
+            "password": "alex123",
+            "access": "shared"
         }
     },
-    "bflanagan@wpi.edu": {
-        "password": "brian123",
-        "access": "shared"
-    },
-    "ksgill@wpi.edu": {
-        "password": "kuldeep123",
-        "access": "shared"
-    },
-    "alexw@wpi.edu": {
-        "password": "alex123",
-        "access": "shared"
+    "alerts": {
+        "Thu Apr 23 11:26:56 2020": "Motion Detected",
+        "Thu Apr 23 11:28:09 2020": "Motion Detected"
     }
 }

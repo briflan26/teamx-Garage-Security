@@ -43,6 +43,8 @@ function login() {
                 resp_data = JSON.parse(request.response);
                 if (resp_data['status'] == 0) {
                     console.log(resp_data['session']);
+                    window.sessionStorage.setItem('key', resp_data['session']);
+                    window.sessionStorage.setItem('email', email.value);
                     window.location.assign('http://' + hostname + ':' + port.toString() + "/home" + "?email=" + email.value + "&session=" + resp_data['session'])
                 } else {
                     displaynote(error_2);

@@ -15,5 +15,7 @@ DEBUG = True
 
 PROJECT_DIR = '..'
 
+GARAGE_DOOR_IP_ADDR = '192.168.1.1'
+
 
 

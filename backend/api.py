@@ -1,13 +1,14 @@
-import console
 import settings
-import os
 from load import load_static
-from db import DataBase
 from request import HTTPMethods
 from response import Response, HTTPResponseCodes, HTTPContentTypes
-from ep_home import home
-from ep_index import index
-from ep_login import login
+from ep_home import Home
+from ep_index import Index
+from ep_login import Login
+from ep_cam import SecurityCameraAlert
+from ep_logout import Logout
+from ep_gstatus import GarageStatus
+from ep_camrefresh import CameraAlertRefresh
 
 
 class API:
@@ -16,10 +17,15 @@ class API:
         self.db_lock = lock
         self.host = host
         self.port = port
+        # map of all api endpoints and their respective functions
         self.map = {
-            '/': index,
-            '/login': login,
-            '/home': home
+            '/': Index,
+            '/login': Login,
+            '/logout': Logout,
+            '/home': Home,
+            '/security/camera/alert': SecurityCameraAlert,
+            '/garage/status': GarageStatus,
+            '/security/camera/refresh': CameraAlertRefresh
         }
         self.gen_map = {
             '/static/js/constants.js': self.gen_constants
@@ -28,7 +34,7 @@ class API:
     def route(self, request):
         if request.path in self.map.keys():  # endpoint exists
             self.db_lock.acquire()
-            r = self.map[request.path](self.db, request)
+            r = self.map[request.path]().run(self.db, request)
             self.db_lock.release()
             return r
         elif request.path in self.gen_map.keys():

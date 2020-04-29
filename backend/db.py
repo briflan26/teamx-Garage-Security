@@ -9,7 +9,9 @@ class DataBase:
         self.fn = fn
         try:
             with open(fn, 'r') as f:
-                self.users = json.load(f)
+                db = json.load(f)
+                self.users = db['users']
+                self.alerts = db['alerts']
         except FileNotFoundError as e:
             console.error('Unable to open database file')
             exit(1)
@@ -17,7 +19,7 @@ class DataBase:
     def write(self):
         try:
             with open(self.fn, 'w') as f:
-                json.dump(self.users, f, indent=4)
+                json.dump({'users':self.users, 'alerts':self.alerts}, f, indent=4)
         except FileNotFoundError as e:
             console.error('Unable to open database file')
             exit(1)
@@ -25,10 +27,21 @@ class DataBase:
     def read(self):
         try:
             with open(self.fn, 'r') as f:
-                self.users = json.load(f)
+                db = json.load(f)
+                self.users = db['users']
+                self.alerts = db['alerts']
         except FileNotFoundError as e:
             console.error('Unable to open database file')
             exit(1)
+
+    def alert(self, timestamp, message):
+        self.read()
+        self.alerts[timestamp] = message
+        self.write()
+
+    def get_alerts(self):
+        self.read()
+        return self.alerts
 
     def login(self, email, password):
         self.read()
