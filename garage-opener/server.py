@@ -16,7 +16,8 @@ class Server:
         if host_ip is None:
             if host_name is None:
                 host_name = socket.gethostname()
-            host_ip = socket.gethostbyname(host_name)
+            if host_ip is None:
+                host_ip = "192.168.1.5" #socket.gethostbyname(host_name)
         if port is None:
             port = 7654
 
