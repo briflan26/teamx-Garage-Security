@@ -34,7 +34,11 @@ class Request:
         previous_chars = [None, None, None]
         console.debug('REQUEST: \n{}'.format(self.raw))
         for idx in range(len(self.raw)):
-            c = chr(self.raw[idx])
+            try:
+                c = chr(self.raw[idx])
+            except TypeError as e:
+                console.error(e)
+                c = ''
             if c == '\n' and previous_chars[0] == '\r' and previous_chars[1] == '\n' and previous_chars[2] == '\r':
                 head = self.raw[0:idx+1]
                 if len(self.raw) > idx + 1:
