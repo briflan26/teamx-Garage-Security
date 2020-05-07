@@ -2,9 +2,9 @@
 API Endpoint: Receive an acknowledgement from the garage door opener about its status
 """
 
-from ep_endpoint import Endpoint
-from request import HTTPMethods
-from response import Response, HTTPContentTypes, HTTPResponseCodes
+from end_points.ep_endpoint import Endpoint
+from http_x.request_x import HTTPMethods
+from http_x.response_x import Response, HTTPContentTypes, HTTPResponseCodes
 import console
 
 

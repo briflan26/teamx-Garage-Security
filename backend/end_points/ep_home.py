@@ -3,12 +3,12 @@ API Endpoint: Requesting the Garage Security Home page
 """
 
 
-from ep_endpoint import Endpoint
+from end_points.ep_endpoint import Endpoint
 import console
 import settings
-from response import Response, HTTPResponseCodes, HTTPContentTypes
-from request import HTTPMethods
-from load import load_static
+from http_x.response_x import Response, HTTPResponseCodes, HTTPContentTypes
+from http_x.request_x import HTTPMethods
+from http_x.load_x import load_static
 
 HOME_P = '/static/html/home.html'
 

@@ -3,11 +3,11 @@ API Endpoint: Retrieve the index page
 """
 
 
-from ep_endpoint import Endpoint
+from end_points.ep_endpoint import Endpoint
 import settings
-from load import load_static
-from response import Response, HTTPContentTypes, HTTPResponseCodes
-from request import HTTPMethods
+from http_x.load_x import load_static
+from http_x.response_x import Response, HTTPContentTypes, HTTPResponseCodes
+from http_x.request_x import HTTPMethods
 
 LOGIN_P = '/static/html/login.html'
 

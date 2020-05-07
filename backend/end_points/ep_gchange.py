@@ -2,10 +2,10 @@
 API Endpoint: Camera notifications from Raspberry Pi
 """
 
-from ep_endpoint import Endpoint
+from end_points.ep_endpoint import Endpoint
 import console
-from response import Response, HTTPContentTypes, HTTPResponseCodes
-from request import HTTPMethods
+from http_x.response_x import Response, HTTPContentTypes, HTTPResponseCodes
+from http_x.request_x import HTTPMethods
 import socket
 import settings
 import json

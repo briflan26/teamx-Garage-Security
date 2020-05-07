@@ -49,8 +49,12 @@ function refresh() {
                 } else {
                     parent.innerHTML = "<h3 class='title is-5'>No new alerts</h3>"
                 }
-                button.classList.remove("is-loading");
+            } else if (request.status == 401) {
+                alert("Authorization Failure")
+            } else {
+                alert("Error detected. Try refreshing the page.")
             }
+            button.classList.remove("is-loading");
         }
     }
 }
@@ -112,7 +116,25 @@ function modalClose(id) {
     el.classList.remove("is-active");
 }
 
-function modalOpen(id){
+function modalOpen(id) {
     el = document.getElementById(id);
     el.classList.add("is-active");
 }
+
+function stream() {
+    console.log("STREAM REFRESH");
+    // constants
+    const ref_url = 'http://' + hostname + ':' + port.toString() + "/security/camera/stream/refresh" + "?email=" +
+        window.sessionStorage.getItem('email') + "&session=" + window.sessionStorage.getItem('key') + "&time=" + new Date().getTime();
+    console.log(ref_url);
+
+    // get elements
+    var button = document.getElementById("tx_b_stream");
+    button.classList.add("is-loading");
+    var parent = document.getElementById("tx_stream_container");
+    parent.innerHTML = '';
+    parent.innerHTML = '<img src="' + ref_url + '"/>';
+    button.classList.remove("is-loading");
+}
+
+window.onload = stream;

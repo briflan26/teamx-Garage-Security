@@ -1,0 +1,150 @@
+{
+    "users": {
+        "teamx@wpi.edu": {
+            "password": "teamx123",
+            "access": "owner",
+            "session": {
+                "key": "2d253ce0-4c9f-4c37-a278-de37220051ef",
+                "time": 1588782606.659293
+            }
+        },
+        "bflanagan@wpi.edu": {
+            "password": "brian123",
+            "access": "shared",
+            "session": {
+                "key": "82caa81e-9c89-477d-b260-bc4eb98e457d",
+                "time": 1588867104.7437577
+            }
+        },
+        "ksgill@wpi.edu": {
+            "password": "kuldeep123",
+            "access": "shared",
+            "session": {
+                "key": "1ab3a542-2987-4f21-8a29-9119771455d6",
+                "time": 1587653326.9180913
+            }
+        },
+        "alexw@wpi.edu": {
+            "password": "alex123",
+            "access": "shared"
+        }
+    },
+    "alerts": {
+        "1588163285144": {
+            "time": "Wed Apr 29 08:28:05 2020",
+            "message": "Motion Detected"
+        },
+        "1588163286168": {
+            "time": "Wed Apr 29 08:28:06 2020",
+            "message": "Motion Detected"
+        },
+        "1588163720226": {
+            "time": "Wed Apr 29 08:35:20 2020",
+            "message": "Motion Detected"
+        },
+        "1588164583977": {
+            "time": "Wed Apr 29 08:49:43 2020",
+            "message": "Motion Detected"
+        },
+        "1588164673594": {
+            "time": "Wed Apr 29 08:51:13 2020",
+            "message": "Motion Detected"
+        },
+        "1588820183074": {
+            "time": "Wed May  6 22:56:23 2020",
+            "message": "Motion Detected"
+        },
+        "1588820252317": {
+            "time": "Wed May  6 22:57:32 2020",
+            "message": "Motion Detected"
+        },
+        "1588820372382": {
+            "time": "Wed May  6 22:59:32 2020",
+            "message": "Motion Detected"
+        },
+        "1588820675532": {
+            "time": "Wed May  6 23:04:35 2020",
+            "message": "Motion Detected"
+        },
+        "1588820701659": {
+            "time": "Wed May  6 23:05:01 2020",
+            "message": "Motion Detected"
+        },
+        "1588820731331": {
+            "time": "Wed May  6 23:05:31 2020",
+            "message": "Motion Detected"
+        },
+        "1588820758746": {
+            "time": "Wed May  6 23:05:58 2020",
+            "message": "Motion Detected"
+        },
+        "1588820788104": {
+            "time": "Wed May  6 23:06:28 2020",
+            "message": "Motion Detected"
+        },
+        "1588860874245": {
+            "time": "Thu May  7 10:14:34 2020",
+            "message": "Motion Detected"
+        },
+        "1588862189954": {
+            "time": "Thu May  7 10:36:29 2020",
+            "message": "Motion Detected"
+        },
+        "1588862261437": {
+            "time": "Thu May  7 10:37:41 2020",
+            "message": "Motion Detected"
+        },
+        "1588862375416": {
+            "time": "Thu May  7 10:39:35 2020",
+            "message": "Motion Detected"
+        },
+        "1588862437963": {
+            "time": "Thu May  7 10:40:37 2020",
+            "message": "Motion Detected"
+        },
+        "1588862622893": {
+            "time": "Thu May  7 10:43:42 2020",
+            "message": "Motion Detected"
+        },
+        "1588862669364": {
+            "time": "Thu May  7 10:44:29 2020",
+            "message": "Motion Detected"
+        },
+        "1588865874009": {
+            "time": "Thu May  7 11:37:54 2020",
+            "message": "Motion Detected"
+        },
+        "1588866078702": {
+            "time": "Thu May  7 11:41:18 2020",
+            "message": "Motion Detected"
+        },
+        "1588866349589": {
+            "time": "Thu May  7 11:45:49 2020",
+            "message": "Motion Detected"
+        },
+        "1588866389807": {
+            "time": "Thu May  7 11:46:29 2020",
+            "message": "Motion Detected"
+        },
+        "1588866466133": {
+            "time": "Thu May  7 11:47:46 2020",
+            "message": "Motion Detected"
+        },
+        "1588866820030": {
+            "time": "Thu May  7 11:53:40 2020",
+            "message": "Motion Detected"
+        },
+        "1588866877981": {
+            "time": "Thu May  7 11:54:37 2020",
+            "message": "Motion Detected"
+        },
+        "1588866990912": {
+            "time": "Thu May  7 11:56:30 2020",
+            "message": "Motion Detected"
+        },
+        "1588867035084": {
+            "time": "Thu May  7 11:57:15 2020",
+            "message": "Motion Detected"
+        }
+    }
+}

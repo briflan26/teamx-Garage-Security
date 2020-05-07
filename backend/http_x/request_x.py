@@ -23,15 +23,32 @@ class Request:
         self.path = None
         self.params = None
         self.data = None
+        self.content_type = None
         if self.parse() is None:
             self.path = None
             self.data = None
 
     def parse(self):
-        utf_raw = self.raw.decode('utf-8')
+        head = None
+        data = None
+        previous_chars = [None, None, None]
+        console.debug('REQUEST: \n{}'.format(self.raw))
+        for idx in range(len(self.raw)):
+            c = chr(self.raw[idx])
+            if c == '\n' and previous_chars[0] == '\r' and previous_chars[1] == '\n' and previous_chars[2] == '\r':
+                head = self.raw[0:idx+1]
+                if len(self.raw) > idx + 1:
+                    data = self.raw[idx+1:]
+                break
+            else:
+                previous_chars[0] = previous_chars[1]
+                previous_chars[1] = previous_chars[2]
+                previous_chars[2] = c
+
+        utf_raw = head.decode('utf-8')
         path_regex = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ01234567890/-.'
         params_regex = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ01234567890-=&@.'
-        console.debug('RAW REQUEST' + utf_raw)
+        console.debug('RAW REQUEST\n' + utf_raw)
 
         if utf_raw[0:3] == 'GET':
             self.method = HTTPMethods.GET
@@ -64,6 +81,7 @@ class Request:
         start_i += 1  # account for the space between method and path
         self.path = ''
         for c in utf_raw[start_i:]:
+            c = c
             if c not in path_regex:
                 break
             self.path += c
@@ -74,6 +92,7 @@ class Request:
             start_i += 1
             temp_params = ''
             for c in utf_raw[start_i:]:
+                c = c
                 if c not in params_regex:
                     break
                 temp_params += c
@@ -85,26 +104,13 @@ class Request:
             self.params = None
         console.debug('SELF.PARAMS = {}'.format(self.params))
 
-        if self.method == HTTPMethods.POST:
-            self.data = ''
-            previous_chars = [None, None, None]
-            flag = False
-            for c in utf_raw:
-                if flag:
-                    self.data += c
-                else:
-                    if c == '\n' and previous_chars[0] == '\r' and previous_chars[1] == '\n' and previous_chars[2] == '\r':
-                        flag = True
-                    else:
-                        previous_chars[0] = previous_chars[1]
-                        previous_chars[1] = previous_chars[2]
-                        previous_chars[2] = c
-
+        if self.method == HTTPMethods.POST and data is not None:
+            self.data = None
             try:
-                self.data = json.loads(self.data)
-            except json.JSONDecodeError:
+                self.data = json.loads(data)
+            except (json.JSONDecodeError, UnicodeDecodeError):
                 console.error('Unable to decode data into a dictionary from HTTP request')
-                self.data = None
+                self.data = data
         else:
             self.data = None
 

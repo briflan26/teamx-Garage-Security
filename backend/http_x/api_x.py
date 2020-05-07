@@ -1,15 +1,18 @@
 import settings
-from load import load_static
-from request import HTTPMethods
-from response import Response, HTTPResponseCodes, HTTPContentTypes
-from ep_home import Home
-from ep_index import Index
-from ep_login import Login
-from ep_cam import SecurityCameraAlert
-from ep_logout import Logout
-from ep_gstatus import GarageStatus
-from ep_gchange import GarageStatusChange
-from ep_camrefresh import CameraAlertRefresh
+from os.path import join
+from http_x.load_x import load_static
+from http_x.request_x import HTTPMethods
+from http_x.response_x import Response, HTTPResponseCodes, HTTPContentTypes
+from end_points.ep_home import Home
+from end_points.ep_index import Index
+from end_points.ep_login import Login
+from end_points.ep_cam import SecurityCameraAlert
+from end_points.ep_logout import Logout
+from end_points.ep_gstatus import GarageStatus
+from end_points.ep_gchange import GarageStatusChange
+from end_points.ep_camrefresh import CameraAlertRefresh
+from end_points.ep_camstream import CameraStreamRefresh
+from end_points.ep_camupload import SecurityCameraUpload
 
 
 class API:
@@ -27,7 +30,9 @@ class API:
             '/security/camera/alert': SecurityCameraAlert,
             '/garage/status': GarageStatus,
             '/security/camera/refresh': CameraAlertRefresh,
-            '/garage/status/change': GarageStatusChange
+            '/garage/status/change': GarageStatusChange,
+            '/security/camera/stream/refresh': CameraStreamRefresh,
+            '/security/camera/upload': SecurityCameraUpload
         }
         self.gen_map = {
             '/static/js/constants.js': self.gen_constants
@@ -47,14 +52,14 @@ class API:
     @staticmethod
     def default(request):
         if request.method == HTTPMethods.GET:
-            return load_static(settings.PROJECT_DIR + request.path)
+            return load_static(join(settings.PROJECT_DIR, request.path[1:]))
         else:
             return Response(code=HTTPResponseCodes.METHOD_NOT_ALLOWED, content_type=HTTPContentTypes.PLAIN,
                             data='Failure'.encode())
 
     def gen_constants(self, request):
         if request.method == HTTPMethods.GET:
-            return Response(code=HTTPResponseCodes.OK, content_type=HTTPContentTypes.JAVASCRIPT,
+            return Response(code=HTTPResponseCodes.OK, content_type=HTTPContentTypes.JS,
                             data='const hostname = "{}";\nconst port = {};\n'.format(self.host, self.port).encode())
         else:
             return Response(code=HTTPResponseCodes.METHOD_NOT_ALLOWED, content_type=HTTPContentTypes.PLAIN,

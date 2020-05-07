@@ -3,6 +3,8 @@ import sys
 import time
 import json
 from argparse import ArgumentParser
+import cv2
+import numpy as np
 
 
 def build(method='POST', path='/security/camera/alert', msg=None):
@@ -40,20 +42,24 @@ def alert(host_ip=None, hostname=None, port=None, data=None):
     if port is None:
         port = 80
 
-    s.connect((host_ip, port))
+    try:
+        s.connect((host_ip, port))
 
-    print("the socket has successfully connected to {}".format(host_ip))
+        print("the socket has successfully connected to {}".format(host_ip))
 
-    if data is None:
-        data = build()
+        if data is None:
+            data = build()
 
-    s.send(data)
+        s.send(data)
 
-    print(data)
+        print(data)
 
-    s.close()
+        s.close()
 
-    print("Successfully sent message")
+        print("Successfully sent message")
+    except ConnectionRefusedError as e:
+        print("[ERROR] Unable to connect to server")
+        s.close()
 
 
 def main():
@@ -61,6 +67,22 @@ def main():
     parser.add_argument("--host-name", "-hn", required=False, type=str)
     parser.add_argument("--port", "-p", required=False, type=int)
     args = parser.parse_args()
+    cv2.namedWindow("TEST")
+    vc = cv2.VideoCapture(0)
+    if vc.isOpened():
+        rval, frame = vc.read()
+    else:
+        rval = False
+
+    while rval:
+        cv2.imshow("TEST", frame)
+        rval, frame = vc.read()
+        key = cv2.waitKey(20)
+        if key == 27:
+            break
+
+    cv2.destroyWindow("TEST")
+    vc.release()
     i = 0
     while i < 5:
         msg = input("Input message")

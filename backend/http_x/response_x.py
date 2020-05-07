@@ -16,11 +16,24 @@ class HTTPResponseCodes(enum.Enum):
 
 
 class HTTPContentTypes(enum.Enum):
+    # text
     PLAIN = 'text/plain'
     HTML = 'text/html'
     CSS = 'text/css'
-    JAVASCRIPT = 'application/javascript'
+
+    # application
+    JS = 'application/javascript'
     JSON = 'application/json'
+    WOFF = 'application/x-font-woff'
+    WOFF2 = 'application/x-font-woff'
+    TTF = 'application/x-font-ttf'
+    EOT = 'application/vnd.ms-fontobject'
+
+    # image
+    JPG = 'image/jpg'
+    JPEG = 'image/jpeg'
+    ICO = 'image/x-icon'
+    SVG = 'image/svg+xml'
 
 
 class Response:

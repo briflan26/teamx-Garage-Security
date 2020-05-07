@@ -2,13 +2,14 @@ import console
 import json
 import uuid
 import time
+from os.path import join, dirname, abspath
 
 
 class DataBase:
     def __init__(self, fn):
         self.fn = fn
         try:
-            with open(fn, 'r') as f:
+            with open(self.fn, 'r') as f:
                 db = json.load(f)
                 self.users = db['users']
                 self.alerts = db['alerts']
