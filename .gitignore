@@ -2,4 +2,6 @@
 venv/
 *.pyc
 */constants.js
-
+*/db.json
+*/settings.py
+*.jpg

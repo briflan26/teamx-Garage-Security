@@ -111,7 +111,7 @@ def cameraDetect(args):
         fn = './imgs/' + str(i_cnt) + '.jpg'
         cv2.imwrite(fn, frame)
         print('[INFO] Image saved to {}'.format(fn))
-        send_img(args, fn)
+        # send_img(args, fn)
         if i_cnt > 10:
             i_cnt = 0
         else:
@@ -126,7 +126,7 @@ def cameraDetect(args):
 
 
 def send_img(args, path):
-    url = 'http://' + args['host_ip'] + ':' + str(args['port']) + '/security/camera/upload'
+    url = 'http://' + args['host_name'] + ':' + str(args['port']) + '/security/camera/upload'
     files = {'file': open(path, 'rb')}
     try:
         requests.post(url, files=files)
